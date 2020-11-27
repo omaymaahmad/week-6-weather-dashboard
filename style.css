@@ -1,0 +1,47 @@
+body {
+    font-family: 'Monaco', sans-serif;
+    font-size: 16px;
+}
+
+.container {
+    text-align: center;
+    background-color: #b684e6;
+    border-radius: 0;
+    border-bottom: 5px solid black;
+}
+
+.aside-container {
+    text-align: left;
+    background-color: purple;
+    border-radius: 0;
+    border-style: 2px solid black;
+}
+  /* nav bar */
+  .topnav input[type=text] {
+    float: right;
+    padding: 10px;
+    border: none;
+    margin-top: 10px;
+    margin-right: 16px;
+    font-size: 24px;
+  }
+  
+  .topnav input[type=text] {
+      border: 1px solid #ccc;
+    }
+
+  /* search button */
+#searchBtn {
+    width: 20%;
+    padding: 10px;
+    background: #2196F3;
+    color: white;
+    font-size: 17px;
+    border: 1px solid grey;
+    border-left: none;
+    cursor: pointer;
+  }
+  
+  #searchBtn:hover {
+    background: #0b7dda;
+  }
