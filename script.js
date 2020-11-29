@@ -36,12 +36,23 @@ $(document).ready(function () {
       $(".search-history").empty();
       createCitiesList(citiesPreviouslySearched);
       // Append the name of city and icon
+      
       var cityName = $("<h3>").text(response.name);
-      var iconHtml = $("<img>").attr(
-        "src",
-        "http://openweathermap.org/img/w/" + response.weather[0].icon + ".png"
-      );
-      $("#present-day").append(cityName, iconHtml);
+      var iconHtml = $("<img>").attr("src","http://openweathermap.org/img/w/" + response.weather[0].icon + ".png");
+      
+     var card = $("<div>").addClass("card");
+     var wind = $("<p>").addClass("card-text").text("Wind Speed: " + response.wind.speed + " MPH");
+     var humid = $("<p>").addClass("card-text").text("Humidity: " + response.main.humidity + "%");
+     var temp = $("<p>").addClass("card-text").text("Temperature: " + response.main.temp + " °C");
+     var cardBody = $("<div>").addClass("card-body");
+      
+     
+     cardBody.append(temp, humid, wind);
+     card.append(cardBody);
+     $("#present-day").append(card);
+     $("#present-day").append(cityName, iconHtml);
+      
+      
       // Forecast API section
       weatherForecast(search);
       weatherUV(response.coord.lat, response.coord.lon);
