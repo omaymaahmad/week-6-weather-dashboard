@@ -56,7 +56,27 @@ $(document).ready(function () {
       type: "GET",
     }).then(function (response) {
       console.log("sdfsf");
-      console.log(response);
+      console.log('this is forecast response', response)
+      for (var i = 0; i < response.list.length; i++) {
+        var date = response.list[i].dt_txt;
+        console.log(date);
+        if (date.endsWith("15:00:00")) {
+
+        var title = $("<h4>").addClass("title").text(new Date(response.list[i].dt_txt));  
+        
+        var col = $("<div>").addClass("col-md-3");
+        var card = $("<div>").addClass("card-bg-primary text-black");
+        var body = $("<div>").addClass("card-body p-3");
+
+        var p1 = $("<p>").addClass("card-text").text("TEMPERATURE: " + response.list[i].main.temp_max + " C");
+        console.log("temp response: ", response.list[i].main.temp_max);
+        var p2 = $("<p>").addClass("card-text").text("HUMIDITY: " + response.list[i].main.humidity + "%"); 
+
+        body.append(title, p1, p2);
+        card.append(body);
+        col.append(card);
+        $("#forecast ").append(col);}
+      };
     });
   }
   // UV API section
