@@ -3,81 +3,90 @@ $(document).ready(function () {
   $("#searchBtn").on("click", function () {
     var search = $("#searchInput").val();
     console.log(search);
-
     weatherData(search);
   });
-});
-
-
-// local storage 
-var citiesPreviouslySearched =
+  // local storage
+  var citiesPreviouslySearched =
     JSON.parse(localStorage.getItem("cities")) || [];
-
-    function createCitiesList(cities){
-        $(".search-history").empty();
-        for (var i = 0 ; i < cities.length ; i++){
-            var listItem = $('<li>').text(cities[i])
-            $(".search-history").append(listItem);
-        }
-    }
-
-// use API to gather the data
-function weatherData(search) {
-  $.ajax({
-    url:
-      "http://api.openweathermap.org/data/2.5/weather?q=" +
-      search +
-      "&appid=15a9f0e5a6e44b139bceaeb431391c1b",
-    type: "GET",
-  }).then(function (response) {
-    console.log(response);
-
-// add to local storage 
-    if (!citiesPreviouslySearched.includes(search)) {
-      citiesPreviouslySearched.push(search);
-      localStorage.setItem("cities", JSON.stringify(citiesPreviouslySearched));
-    }
+  function createCitiesList(cities) {
     $(".search-history").empty();
-    createCitiesList(citiesPreviouslySearched); 
-
-// Append the name of city and icon
-    var cityName = $('<h3>').text(response.name);
-    var iconHtml = $('<img>').attr('src', 'http://openweathermap.org/img/w/' + response.weather[0].icon + '.png');
-    $("#present-day").append(cityName, iconHtml);
-
-// Forecast API section
-    weatherForecast(search);
-    weatherUV(response.coord.lat, response.coord.lon);
-  });
-}
-function weatherForecast(search) {
-  $.ajax({
-    url:
-      "http://api.openweathermap.org/data/2.5/forecast?q=" +
-      search +
-      "&appid=15a9f0e5a6e44b139bceaeb431391c1b",
-    type: "GET",
-  }).then(function (response) {
-    console.log("sdfsf");
-    console.log(response);
-  });
-}
-
-// UV API section 
-function weatherUV(lat, lon) {
-  $.ajax({
-    url:
-      "http://api.openweathermap.org/data/2.5/uvi?lat=" +
-      lat +
-      "&lon=" +
-      lon +
-      "&appid=15a9f0e5a6e44b139bceaeb431391c1b",
-    type: "GET",
-  }).then(function (response) {
-    console.log(response);
-  });
-
-  // response.value for weatheruv
-
+    for (var i = 0; i < cities.length; i++) {
+      var listItem = $("<li>").text(cities[i]);
+      $(".search-history").append(listItem);
+    }
+  }
+  // use API to gather the data
+  function weatherData(search) {
+    $.ajax({
+      url:
+        "http://api.openweathermap.org/data/2.5/weather?q=" +
+        search +
+        "&appid=15a9f0e5a6e44b139bceaeb431391c1b",
+      type: "GET",
+    }).then(function (response) {
+      console.log(response);
+      // add to local storage
+      if (!citiesPreviouslySearched.includes(search)) {
+        citiesPreviouslySearched.push(search);
+        localStorage.setItem(
+          "cities",
+          JSON.stringify(citiesPreviouslySearched)
+        );
+      }
+      $(".search-history").empty();
+      createCitiesList(citiesPreviouslySearched);
+      // Append the name of city and icon
+      var cityName = $("<h3>").text(response.name);
+      var iconHtml = $("<img>").attr(
+        "src",
+        "http://openweathermap.org/img/w/" + response.weather[0].icon + ".png"
+      );
+      $("#present-day").append(cityName, iconHtml);
+      // Forecast API section
+      weatherForecast(search);
+      weatherUV(response.coord.lat, response.coord.lon);
+    });
+  }
+  function weatherForecast(search) {
+    $.ajax({
+      url:
+        "http://api.openweathermap.org/data/2.5/forecast?q=" +
+        search +
+        "&appid=15a9f0e5a6e44b139bceaeb431391c1b",
+      type: "GET",
+    }).then(function (response) {
+      console.log("sdfsf");
+      console.log(response);
+    });
+  }
+  // UV API section
+  function weatherUV(lat, lon) {
+    $.ajax({
+      dataType: "json",
+      url:
+        "http://api.openweathermap.org/data/2.5/uvi?lat=" +
+        lat +
+        "&lon=" +
+        lon +
+        "&appid=15a9f0e5a6e44b139bceaeb431391c1b",
+      type: "GET",
+    }).then(function (response) {
+        console.log('this is uv response', response)
+        var uvBtn = $("<div>").addClass("btn btn-sm").text(response.value);
+        var uv = $("<p>").text("UV INDEX: "); 
+        if (response.value < 3) {
+        uvBtn.addClass("good");
+      }  
+        else if (response.value < 7) {
+        uvBtn.addClass("warning");
+      }
+        else {
+        uvBtn.addClass("danger");
+      }
+      uvBtn.append(uv);
+      $("#forecast").append(uvBtn);
+     });
+    
+  }
   createCitiesList(citiesPreviouslySearched);
-}
+});
