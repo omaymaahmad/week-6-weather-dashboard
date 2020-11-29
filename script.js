@@ -40,7 +40,12 @@ function weatherData(search) {
     $(".search-history").empty();
     createCitiesList(citiesPreviouslySearched); 
 
+// Append the name of city and icon
+    var cityName = $('<h3>').text(response.name);
+    var iconHtml = $('<img>').attr('src', 'http://openweathermap.org/img/w/' + response.weather[0].icon + '.png');
+    $("#present-day").append(cityName, iconHtml);
 
+// Forecast API section
     weatherForecast(search);
     weatherUV(response.coord.lat, response.coord.lon);
   });
@@ -58,6 +63,7 @@ function weatherForecast(search) {
   });
 }
 
+// UV API section 
 function weatherUV(lat, lon) {
   $.ajax({
     url:
@@ -70,6 +76,8 @@ function weatherUV(lat, lon) {
   }).then(function (response) {
     console.log(response);
   });
+
+  // response.value for weatheruv
 
   createCitiesList(citiesPreviouslySearched);
 }
