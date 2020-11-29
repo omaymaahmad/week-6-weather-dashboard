@@ -45,3 +45,17 @@ body {
   #searchBtn:hover {
     background: #0b7dda;
   }
+
+  /* present div */
+  #present-day {
+    text-align: center;
+    border-radius: 0;
+    border-style: 2px solid black 
+  }
+
+  /* forecast div */
+  #forecast {
+    text-align: center;
+    border-radius: 0;
+    border-style: 2px solid black 
+  }

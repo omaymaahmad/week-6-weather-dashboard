@@ -2,10 +2,10 @@
 $(document).ready(function () {
   $("#searchBtn").on("click", function () {
     var search = $("#searchInput").val();
-    console.log(search);
     weatherData(search);
   });
-  // local storage
+
+    // local storage
   var citiesPreviouslySearched =
     JSON.parse(localStorage.getItem("cities")) || [];
   function createCitiesList(cities) {
@@ -76,7 +76,7 @@ $(document).ready(function () {
         var title = $("<h4>").addClass("title").text(new Date(response.list[i].dt_txt));  
         
         var col = $("<div>").addClass("col-md-3");
-        var card = $("<div>").addClass("card-bg-primary text-black");
+        var card = $("<div>").addClass("card-sm-primary text-black");
         var body = $("<div>").addClass("card-body p-3");
         
         var temperature = response.list[i].main.temp_max;
