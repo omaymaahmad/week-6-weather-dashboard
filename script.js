@@ -13,6 +13,14 @@ $(document).ready(function () {
 var citiesPreviouslySearched =
     JSON.parse(localStorage.getItem("cities")) || [];
 
+    function createCitiesList(cities){
+        $(".search-history").empty();
+        for (var i = 0 ; i < cities.length ; i++){
+            var listItem = $('<li>').text(cities[i])
+            $(".search-history").append(listItem);
+        }
+    }
+
 // use API to gather the data
 function weatherData(search) {
   $.ajax({
@@ -29,6 +37,9 @@ function weatherData(search) {
       citiesPreviouslySearched.push(search);
       localStorage.setItem("cities", JSON.stringify(citiesPreviouslySearched));
     }
+    $(".search-history").empty();
+    createCitiesList(citiesPreviouslySearched); 
+
 
     weatherForecast(search);
     weatherUV(response.coord.lat, response.coord.lon);
@@ -60,6 +71,5 @@ function weatherUV(lat, lon) {
     console.log(response);
   });
 
-  var citiesPreviouslySearched =
-    JSON.parse(localStorage.getItem("cities")) || [];
+  createCitiesList(citiesPreviouslySearched);
 }
