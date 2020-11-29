@@ -15,7 +15,7 @@ $(document).ready(function () {
       $(".search-history").append(listItem);
     }
   }
-  // use API to gather the data
+  // Present Day section
   function weatherData(search) {
     $.ajax({
       url:
@@ -67,13 +67,16 @@ $(document).ready(function () {
         var col = $("<div>").addClass("col-md-3");
         var card = $("<div>").addClass("card-bg-primary text-black");
         var body = $("<div>").addClass("card-body p-3");
-
-        var p1 = $("<p>").addClass("card-text").text("TEMPERATURE: " + response.list[i].main.temp_max + " C");
-        console.log("temp response: ", response.list[i].main.temp_max);
+        
+        var temperature = response.list[i].main.temp_max;
+        temperature = parseFloat(temperature) - 273.15;
+        
+        var p1 = $("<p>").addClass("card-text").text("TEMPERATURE: " + temperature + " C");
         var p2 = $("<p>").addClass("card-text").text("HUMIDITY: " + response.list[i].main.humidity + "%"); 
 
         body.append(title, p1, p2);
         card.append(body);
+
         col.append(card);
         $("#forecast ").append(col);}
       };
