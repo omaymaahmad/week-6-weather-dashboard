@@ -1,4 +1,15 @@
 # 06 Server-Side APIs: Weather Dashboard
+deployed link: https://omaymaahmad.github.io/week-6-weather-dashboard/
+
+see Assests folder for screenshot
+
+* created search button, that uses the API key to collect data, store in local storage and present an unordered list of previous searches
+* local storage stores the searches
+* present day section shows the weather forecast and appends the information
+* 5 day forecast uses a for loop to show the weather forecast for the next 5 days
+* UV section displays the data of the UV
+* started adding the conditional colour settings but did not finish
+* was unable to make the unordered list into buttons
 
 Developers are often tasked with retrieving data from another application's API and using it in the context of their own. Third-party APIs allow developers to access their data and functionality by making requests with specific parameters to a URL. Your challenge is to build a weather dashboard that will run in the browser and feature dynamically updated HTML and CSS.
 
