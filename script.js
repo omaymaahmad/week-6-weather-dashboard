@@ -1,5 +1,6 @@
 $(document).ready(function(){
     $("#searchBtn").on("click", function() {
-        alert("i've been clicked!");
+        var search =$("#searchBtn").val();
+        console.log(search);
     });
 });
